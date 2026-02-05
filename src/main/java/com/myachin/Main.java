@@ -9,6 +9,9 @@ public class Main {
         try {
             ArgumentsConfig config = ArgumentsParser.parse(args);
             System.out.println("Files: " + config.getFilesToParse());
+
+            for (var arg : args)
+                System.out.println(arg);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         } catch (Exception e) {

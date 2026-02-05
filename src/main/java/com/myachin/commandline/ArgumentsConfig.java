@@ -12,4 +12,7 @@ public class ArgumentsConfig {
 
     List<Path> filesToParse;
     Path outputDirectory;
+    boolean shortInfo;
+    boolean fullInfo;
+    boolean appendMode;
 }

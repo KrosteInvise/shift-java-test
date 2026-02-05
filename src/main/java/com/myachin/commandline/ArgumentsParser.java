@@ -9,6 +9,9 @@ public class ArgumentsParser {
 
         var filesToParse =  new ArrayList<Path>();
         var outputDirectory = Path.of("./output");
+        var shortInfo = false;
+        var fullInfo = false;
+        var appendMode = false;
 
         for (int i = 0; i < args.length; i++) {
 
@@ -17,9 +20,18 @@ public class ArgumentsParser {
             switch (arg) {
                 case "-o" -> {
                     if(i+1 >= args.length) {
-                        throw new IllegalArgumentException("Arguement -o requires a path!");
+                        throw new IllegalArgumentException("Argument -o requires a path");
                     }
                     outputDirectory = Path.of(args[++i]);
+                }
+                case "-s" -> {
+                    shortInfo = true;
+                }
+                case "-f" -> {
+                    fullInfo = true;
+                }
+                case "-a" -> {
+                    appendMode = true;
                 }
                 default -> {
                     if(arg.startsWith("-")) {
@@ -30,14 +42,20 @@ public class ArgumentsParser {
             }
         }
 
+        if (shortInfo && fullInfo) {
+            throw new IllegalArgumentException("Can't use -s and -f arguments at the same time");
+        }
+
         if (filesToParse.isEmpty()) {
             throw new IllegalArgumentException("No input files specified");
         }
 
         return new ArgumentsConfig(
                 filesToParse,
-                outputDirectory
+                outputDirectory,
+                shortInfo,
+                fullInfo,
+                appendMode
         );
     }
-
 }
