@@ -1,14 +1,17 @@
-package com.myachin.commandline;
+package com.myachin.commandline.utility;
+
+import com.myachin.commandline.model.ArgumentsConfig;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class ArgumentsParser {
+public final class ArgumentsParser {
 
     public static ArgumentsConfig parse(String[] args) {
 
         var filesToParse =  new ArrayList<Path>();
         var outputDirectory = Path.of("./output");
+        var prefix = "";
         var shortInfo = false;
         var fullInfo = false;
         var appendMode = false;
@@ -19,10 +22,15 @@ public class ArgumentsParser {
 
             switch (arg) {
                 case "-o" -> {
-                    if(i+1 >= args.length) {
+                    if(i++ >= args.length) {
                         throw new IllegalArgumentException("Argument -o requires a path");
                     }
                     outputDirectory = Path.of(args[++i]);
+                }
+                case "-p" -> {
+                    if(i++ >= args.length) {
+                        throw new IllegalArgumentException("Argument -p requires a prefix");
+                    }
                 }
                 case "-s" -> {
                     shortInfo = true;
@@ -53,6 +61,7 @@ public class ArgumentsParser {
         return new ArgumentsConfig(
                 filesToParse,
                 outputDirectory,
+                prefix,
                 shortInfo,
                 fullInfo,
                 appendMode
