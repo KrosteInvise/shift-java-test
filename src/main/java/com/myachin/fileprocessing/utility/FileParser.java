@@ -17,7 +17,7 @@ public class FileParser {
     }
 
     private void parseLine(String line, LineType type) {
-        System.out.println();
+        System.out.println(type + ": " + line);
     }
 
     private void parseFile(Path file) {
