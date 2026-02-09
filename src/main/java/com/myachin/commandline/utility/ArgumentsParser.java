@@ -28,7 +28,7 @@ public final class ArgumentsParser {
                     if(i++ >= args.length) {
                         throw new IllegalArgumentException("Argument -o requires a path");
                     }
-                    outputDirectory = Path.of(args[++i]);
+                    outputDirectory = Path.of(args[i]);
                 }
                 case "-p" -> {
                     if(i++ >= args.length) {
