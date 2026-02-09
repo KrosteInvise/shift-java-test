@@ -1,6 +1,7 @@
 package com.myachin.fileprocessing.utility;
 
 import com.myachin.fileprocessing.model.LineType;
+import lombok.AllArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,16 +9,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+@AllArgsConstructor
 public class FileParser {
+
+    private final OutputWriter writer;
 
     public void parseFiles(List<Path> files) {
         for (var file : files) {
             parseFile(file);
         }
-    }
-
-    private void parseLine(String line, LineType type) {
-        System.out.println(type + ": " + line);
     }
 
     private void parseFile(Path file) {
@@ -34,11 +34,15 @@ public class FileParser {
             String line;
             while ((line = reader.readLine()) != null) {
                 LineType type = LineTypeClassifier.classify(line);
-                parseLine(line, type);
+                writer.write(line, type);
             }
         }
         catch (IOException e) {
             System.err.println("Failed to read file: " + file + e.getMessage());
         }
+    }
+
+    public void close() {
+        writer.close();
     }
 }

@@ -8,13 +8,16 @@ import java.util.ArrayList;
 public final class ArgumentsParser {
 
     public static ArgumentsConfig parse(String[] args) {
-
         var filesToParse =  new ArrayList<Path>();
         var outputDirectory = Path.of("./output");
         var prefix = "";
         var shortInfo = false;
         var fullInfo = false;
         var appendMode = false;
+
+        for (int i = 0; i < args.length; i++) {
+            System.out.println(i + " " + args[i]);
+        }
 
         for (int i = 0; i < args.length; i++) {
 
@@ -31,16 +34,11 @@ public final class ArgumentsParser {
                     if(i++ >= args.length) {
                         throw new IllegalArgumentException("Argument -p requires a prefix");
                     }
+                    prefix = args[i];
                 }
-                case "-s" -> {
-                    shortInfo = true;
-                }
-                case "-f" -> {
-                    fullInfo = true;
-                }
-                case "-a" -> {
-                    appendMode = true;
-                }
+                case "-s" -> shortInfo = true;
+                case "-f" -> fullInfo = true;
+                case "-a" -> appendMode = true;
                 default -> {
                     if(arg.startsWith("-")) {
                         throw new IllegalArgumentException("Non-existing argument: " + arg);

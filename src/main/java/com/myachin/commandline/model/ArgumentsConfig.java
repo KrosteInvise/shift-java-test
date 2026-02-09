@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class ArgumentsConfig {
-
     List<Path> filesToParse;
     Path outputDirectory;
     String prefix;

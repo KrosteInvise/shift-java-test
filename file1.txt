@@ -1,5 +1,8 @@
-testing
-213
-21.3
-2.13
-0.23
+Lorem ipsum dolor sit amet
+45
+Пример
+3.1415
+consectetur adipiscing
+-0.001
+тестовое задание
+100500
