@@ -1,31 +1,69 @@
 package com.myachin.io;
 
 import com.myachin.model.LineType;
-
-import java.util.EnumMap;
-import java.util.Map;
+import com.myachin.model.NumbersStats;
+import com.myachin.model.StringStats;
 
 public class Stats {
 
-    private final Map<LineType, Long> counters = new EnumMap<>(LineType.class);
+    private long intCount = 0;
+    private long floatCount = 0;
+    private long stringCount = 0;
 
-    public Stats() {
-        for (var type : LineType.values()) {
-            counters.put(type, 0L);
+    private final NumbersStats intStats = new NumbersStats();
+    private final NumbersStats floatStats = new NumbersStats();
+    private final StringStats stringStats = new StringStats();
+
+    public void accept(LineType type, String line) {
+        switch (type) {
+            case INTEGER -> {
+                intCount++;
+                intStats.accept(Long.parseLong(line));
+            }
+            case FLOAT -> {
+                floatCount++;
+                floatStats.accept(Double.parseDouble(line));
+            }
+            case STRING -> {
+                stringCount++;
+                stringStats.accept(line);
+            }
         }
-    }
-
-    public void incrementType(LineType type) {
-        counters.put(type, counters.get(type) + 1);
     }
 
     public void printShortStats() {
-        System.out.println("---- Short Stats ----");
-        for (var type : LineType.values()) {
-            long count = counters.get(type);
-            if(count > 0) {
-                System.out.printf("%s : %d%n", type, count);
-            }
+        System.out.println("---- Short stats ----");
+        if (intCount > 0) System.out.println("Integers: " + intCount);
+        if (floatCount > 0) System.out.println("Floats: " + floatCount);
+        if (stringCount > 0) System.out.println("Strings: " + stringCount);
+    }
+
+    public void printFullStats() {
+        System.out.println("---- Full stats ----");
+
+        if (intStats.hasData()) {
+            System.out.println("INTEGER:");
+            printNumberStats(intStats);
         }
+
+        if (floatStats.hasData()) {
+            System.out.println("FLOAT:");
+            printNumberStats(floatStats);
+        }
+
+        if (stringStats.hasData()) {
+            System.out.println("STRING:");
+            System.out.println("  count = " + stringStats.getCount());
+            System.out.println("  min length = " + stringStats.getMinLength());
+            System.out.println("  max length = " + stringStats.getMaxLength());
+        }
+    }
+
+    private void printNumberStats(NumbersStats stats) {
+        System.out.println("  count = " + stats.getCount());
+        System.out.println("  min = " + stats.getMinValue());
+        System.out.println("  max = " + stats.getMaxValue());
+        System.out.println("  sum = " + stats.getSum());
+        System.out.println("  avg = " + stats.getAverage());
     }
 }

@@ -23,7 +23,13 @@ public class Main {
                 stats.printShortStats();
             }
 
+            if(config.isFullStats()) {
+                stats.printFullStats();
+            }
+
             System.out.println("Complete successfully");
+        } catch (IllegalArgumentException e) {
+            System.err.println("Argument error: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
         }

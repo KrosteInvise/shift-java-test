@@ -38,7 +38,7 @@ public class FileParser {
             while ((line = reader.readLine()) != null) {
                 LineType type = LineTypeClassifier.classify(line);
                 writer.write(line, type);
-                stats.incrementType(type);
+                stats.accept(type, line);
             }
         }
         catch (IOException e) {
