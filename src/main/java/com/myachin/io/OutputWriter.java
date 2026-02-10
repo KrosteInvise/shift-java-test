@@ -1,6 +1,6 @@
-package com.myachin.fileprocessing.utility;
+package com.myachin.io;
 
-import com.myachin.fileprocessing.model.LineType;
+import com.myachin.model.LineType;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -42,19 +42,10 @@ public class OutputWriter {
         Files.createDirectories(outputDirectory);
         Path filePath = outputDirectory.resolve(prefix + fileNamePostfix(type));
 
-        if (append) {
-            return Files.newBufferedWriter(
-                    filePath,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND
-            );
-        } else {
-            return Files.newBufferedWriter(
-                    filePath,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.TRUNCATE_EXISTING
-            );
-        }
+        return Files.newBufferedWriter(
+                filePath,
+                StandardOpenOption.CREATE,
+                append ? StandardOpenOption.APPEND : StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     private String fileNamePostfix(LineType type) {

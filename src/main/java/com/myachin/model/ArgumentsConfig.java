@@ -1,4 +1,4 @@
-package com.myachin.commandline.model;
+package com.myachin.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ public class ArgumentsConfig {
     List<Path> filesToParse;
     Path outputDirectory;
     String prefix;
-    boolean shortInfo;
-    boolean fullInfo;
+    boolean shortStats;
+    boolean fullStats;
     boolean appendMode;
 }

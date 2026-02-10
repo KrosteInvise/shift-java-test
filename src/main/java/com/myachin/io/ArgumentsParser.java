@@ -1,6 +1,6 @@
-package com.myachin.commandline.utility;
+package com.myachin.io;
 
-import com.myachin.commandline.model.ArgumentsConfig;
+import com.myachin.model.ArgumentsConfig;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -11,13 +11,9 @@ public final class ArgumentsParser {
         var filesToParse =  new ArrayList<Path>();
         var outputDirectory = Path.of("./output");
         var prefix = "";
-        var shortInfo = false;
-        var fullInfo = false;
+        var shortStats = false;
+        var fullStats = false;
         var appendMode = false;
-
-        for (int i = 0; i < args.length; i++) {
-            System.out.println(i + " " + args[i]);
-        }
 
         for (int i = 0; i < args.length; i++) {
 
@@ -36,8 +32,8 @@ public final class ArgumentsParser {
                     }
                     prefix = args[i];
                 }
-                case "-s" -> shortInfo = true;
-                case "-f" -> fullInfo = true;
+                case "-s" -> shortStats = true;
+                case "-f" -> fullStats = true;
                 case "-a" -> appendMode = true;
                 default -> {
                     if(arg.startsWith("-")) {
@@ -48,7 +44,7 @@ public final class ArgumentsParser {
             }
         }
 
-        if (shortInfo && fullInfo) {
+        if (shortStats && fullStats) {
             throw new IllegalArgumentException("Can't use -s and -f arguments at the same time");
         }
 
@@ -60,8 +56,8 @@ public final class ArgumentsParser {
                 filesToParse,
                 outputDirectory,
                 prefix,
-                shortInfo,
-                fullInfo,
+                shortStats,
+                fullStats,
                 appendMode
         );
     }

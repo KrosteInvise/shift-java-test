@@ -1,4 +1,4 @@
-package com.myachin.fileprocessing.model;
+package com.myachin.model;
 
 public enum LineType {
     INTEGER,

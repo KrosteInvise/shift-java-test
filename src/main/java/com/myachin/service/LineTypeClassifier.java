@@ -1,6 +1,6 @@
-package com.myachin.fileprocessing.utility;
+package com.myachin.service;
 
-import com.myachin.fileprocessing.model.LineType;
+import com.myachin.model.LineType;
 
 public final class LineTypeClassifier {
 
@@ -10,25 +10,16 @@ public final class LineTypeClassifier {
         if(field.isEmpty())
             return LineType.STRING;
 
-        if(isInteger(field) || isLong(field))
+        if(isWholeNumber(field))
             return LineType.INTEGER;
 
-        if(isFloat(field))
+        if(isDecimalNumber(field))
             return LineType.FLOAT;
 
         return LineType.STRING;
     }
 
-    private static boolean isInteger(String field) {
-        try {
-            Integer.parseInt(field);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private static boolean isLong(String field) {
+    private static boolean isWholeNumber(String field) {
         try {
             Long.parseLong(field);
             return true;
@@ -37,9 +28,9 @@ public final class LineTypeClassifier {
         }
     }
 
-    private static boolean isFloat(String field) {
+    private static boolean isDecimalNumber(String field) {
         try {
-            Float.parseFloat(field);
+            Double.parseDouble(field);
             return true;
         } catch (NumberFormatException e) {
             return false;

@@ -1,6 +1,8 @@
-package com.myachin.fileprocessing.utility;
+package com.myachin.service;
 
-import com.myachin.fileprocessing.model.LineType;
+import com.myachin.io.Stats;
+import com.myachin.io.OutputWriter;
+import com.myachin.model.LineType;
 import lombok.AllArgsConstructor;
 
 import java.io.BufferedReader;
@@ -13,6 +15,7 @@ import java.util.List;
 public class FileParser {
 
     private final OutputWriter writer;
+    private final Stats stats;
 
     public void parseFiles(List<Path> files) {
         for (var file : files) {
@@ -35,6 +38,7 @@ public class FileParser {
             while ((line = reader.readLine()) != null) {
                 LineType type = LineTypeClassifier.classify(line);
                 writer.write(line, type);
+                stats.incrementType(type);
             }
         }
         catch (IOException e) {
