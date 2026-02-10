@@ -11,9 +11,9 @@ public class StringStats {
 
     public void accept(String value) {
         count++;
-        int lenght = value.length();
-        minLength = Math.min(minLength, lenght);
-        maxLength = Math.max(maxLength, lenght);
+        int length = value.length();
+        minLength = Math.min(minLength, length);
+        maxLength = Math.max(maxLength, length);
     }
 
     public boolean hasData() {
