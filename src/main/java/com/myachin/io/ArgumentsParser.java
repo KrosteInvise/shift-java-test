@@ -4,18 +4,25 @@ import com.myachin.model.ArgumentsConfig;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public final class ArgumentsParser {
 
-    private static String RED = "\u001B[31m";
+    private static final Set<String> OPTIONS =
+            Set.of("-o", "-p", "-a", "-s", "-f");
+
+    private static boolean isOption(String arg) {
+        return OPTIONS.contains(arg);
+    }
 
     public static ArgumentsConfig parse(String[] args) {
-        var filesToParse =  new ArrayList<Path>();
-        var outputDirectory = Path.of("./output");
-        var prefix = "";
-        var shortStats = false;
-        var fullStats = false;
-        var appendMode = false;
+        List<Path> filesToParse =  new ArrayList<Path>();
+        Path outputDirectory = Path.of(".");
+        String prefix = "";
+        boolean shortStats = false;
+        boolean fullStats = false;
+        boolean appendMode = false;
 
         for (int i = 0; i < args.length; i++) {
 
@@ -23,16 +30,16 @@ public final class ArgumentsParser {
 
             switch (arg) {
                 case "-o" -> {
-                    if(i++ >= args.length) {
+                    if(i+1 >= args.length || isOption(args[i+1])) {
                         throw new IllegalArgumentException("Argument -o requires a path");
                     }
-                    outputDirectory = Path.of(args[i]);
+                    outputDirectory = Path.of(args[++i]);
                 }
                 case "-p" -> {
-                    if(i++ >= args.length) {
+                    if(i+1 >= args.length || isOption(args[i+1])) {
                         throw new IllegalArgumentException("Argument -p requires a prefix");
                     }
-                    prefix = args[i];
+                    prefix = args[++i];
                 }
                 case "-s" -> shortStats = true;
                 case "-f" -> fullStats = true;
@@ -51,7 +58,7 @@ public final class ArgumentsParser {
         }
 
         if (filesToParse.isEmpty()) {
-            throw new IllegalArgumentException(RED + "No input files specified");
+            throw new IllegalArgumentException("No input files specified");
         }
 
         return new ArgumentsConfig(

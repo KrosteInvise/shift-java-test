@@ -22,13 +22,12 @@ public class Main {
 
             if (config.isShortStats()) {
                 stats.printShortStats();
-            }
-
-            if(config.isFullStats()) {
+            } else if(config.isFullStats()) {
                 stats.printFullStats();
+            } else {
+                System.out.println("Complete successfully");
             }
 
-            System.out.println("Complete successfully");
         } catch (IllegalArgumentException e) {
             ConsoleUtils.printError("Argument error: " + e.getMessage());
         } catch (Exception e) {
