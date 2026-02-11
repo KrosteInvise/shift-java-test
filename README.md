@@ -53,6 +53,6 @@ FLOAT:
   Average = 1.0468333333333335
 STRING:
   Count = 6
-  Minimum length = 0
+  Minimum length = 4
   Maximum length = 42
 ```

@@ -37,17 +37,17 @@ public class Stats {
 
         if (stringStats.hasData()) {
             System.out.println("STRING:");
-            System.out.println("  count = " + stringStats.getCount());
-            System.out.println("  min length = " + stringStats.getMinLength());
-            System.out.println("  max length = " + stringStats.getMaxLength());
+            System.out.println("  Count = " + stringStats.getCount());
+            System.out.println("  Minimum length = " + stringStats.getMinLength());
+            System.out.println("  Maximum length = " + stringStats.getMaxLength());
         }
     }
 
     private void printNumberStats(NumbersStats<?> stats) {
-        System.out.println("  count = " + stats.getCount());
-        System.out.println("  min = " + stats.getMinValue());
-        System.out.println("  max = " + stats.getMaxValue());
-        System.out.println("  sum = " + stats.getSum());
-        System.out.println("  avg = " + stats.getAverage());
+        System.out.println("  Count = " + stats.getCount());
+        System.out.println("  Minimum value = " + stats.getMinValue());
+        System.out.println("  Maximum value = " + stats.getMaxValue());
+        System.out.println("  Sum = " + stats.getSum());
+        System.out.println("  Average = " + stats.getAverage());
     }
 }

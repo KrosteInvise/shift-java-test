@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class StringStats {
     private long count = 0;
-    private int minLength = 0;
+    private int minLength = Integer.MAX_VALUE;
     private int maxLength = 0;
 
     public void accept(String value) {
