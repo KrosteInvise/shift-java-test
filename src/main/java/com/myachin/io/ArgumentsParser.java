@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public final class ArgumentsParser {
 
+    private static String RED = "\u001B[31m";
+
     public static ArgumentsConfig parse(String[] args) {
         var filesToParse =  new ArrayList<Path>();
         var outputDirectory = Path.of("./output");
@@ -49,7 +51,7 @@ public final class ArgumentsParser {
         }
 
         if (filesToParse.isEmpty()) {
-            throw new IllegalArgumentException("No input files specified");
+            throw new IllegalArgumentException(RED + "No input files specified");
         }
 
         return new ArgumentsConfig(

@@ -5,6 +5,7 @@ import com.myachin.model.ArgumentsConfig;
 import com.myachin.io.ArgumentsParser;
 import com.myachin.service.FileParser;
 import com.myachin.io.OutputWriter;
+import com.myachin.util.ConsoleUtils;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,9 +30,9 @@ public class Main {
 
             System.out.println("Complete successfully");
         } catch (IllegalArgumentException e) {
-            System.err.println("Argument error: " + e.getMessage());
+            ConsoleUtils.printError("Argument error: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+            ConsoleUtils.printError("Unexpected error: " + e.getMessage());
         }
     }
 }
