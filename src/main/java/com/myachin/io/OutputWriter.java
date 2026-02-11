@@ -1,7 +1,6 @@
 package com.myachin.io;
 
 import com.myachin.model.LineType;
-import com.myachin.util.ConsoleUtils;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class OutputWriter {
             writer.write(line);
             writer.newLine();
         } catch (IOException e) {
-            ConsoleUtils.printError("Failed to write line: " + e.getMessage());
+            System.err.println("Failed to write line: " + e.getMessage());
         }
     }
 
@@ -62,7 +61,7 @@ public class OutputWriter {
             try {
                 writer.close();
             } catch (IOException e) {
-                ConsoleUtils.printError("Failed to close writer: " + e.getMessage());
+                System.err.println("Failed to close writer: " + e.getMessage());
             }
         }
     }

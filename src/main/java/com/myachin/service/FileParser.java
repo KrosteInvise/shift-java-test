@@ -3,7 +3,6 @@ package com.myachin.service;
 import com.myachin.io.Stats;
 import com.myachin.io.OutputWriter;
 import com.myachin.model.LineType;
-import com.myachin.util.ConsoleUtils;
 import lombok.AllArgsConstructor;
 
 import java.io.BufferedReader;
@@ -26,12 +25,12 @@ public class FileParser {
 
     private void parseFile(Path file) {
         if(!Files.exists(file)) {
-            ConsoleUtils.printError("File does not exist: " + file);
+            System.err.println("File does not exist: " + file);
             return;
         }
 
         if(!Files.isReadable(file)) {
-            ConsoleUtils.printError("Unreadable file: " + file);
+            System.err.println("Unreadable file: " + file);
         }
 
         try (BufferedReader reader = Files.newBufferedReader(file)) {
@@ -43,7 +42,7 @@ public class FileParser {
             }
         }
         catch (IOException e) {
-            ConsoleUtils.printError("Failed to read file: " + file + e.getMessage());
+            System.err.println("Failed to read file: " + file + e.getMessage());
         }
     }
 
