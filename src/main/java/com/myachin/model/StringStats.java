@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class StringStats {
-
     private long count = 0;
     private int minLength = 0;
     private int maxLength = 0;

@@ -3,22 +3,17 @@ package com.myachin.model;
 import lombok.Getter;
 
 @Getter
-public class NumbersStats {
+public abstract class NumbersStats<T extends Number> {
 
-    private long count = 0;
-    private double minValue = 0;
-    private double maxValue = Double.MAX_VALUE;
-    private double sum = 0;
+    protected long count = 0;
 
-    public void accept(double value) {
-        count++;
-        minValue = Math.min(minValue, value);
-        maxValue = Math.max(maxValue, value);
-        sum += value;
-    }
+    public abstract void accept(T value);
+    public abstract T getMinValue();
+    public abstract T getMaxValue();
+    public abstract T getSum();
 
     public double getAverage() {
-        return count == 0 ? 0 : sum/count;
+        return count == 0 ? 0 : getSum().doubleValue() / count;
     }
 
     public boolean hasData() {

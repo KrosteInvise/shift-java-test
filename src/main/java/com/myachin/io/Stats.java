@@ -1,41 +1,25 @@
 package com.myachin.io;
 
-import com.myachin.model.LineType;
-import com.myachin.model.NumbersStats;
-import com.myachin.model.StringStats;
+import com.myachin.model.*;
 
 public class Stats {
-
-    private long intCount = 0;
-    private long floatCount = 0;
-    private long stringCount = 0;
-
-    private final NumbersStats intStats = new NumbersStats();
-    private final NumbersStats floatStats = new NumbersStats();
+    private final NumbersStats<Long> intStats = new IntegerStats();
+    private final NumbersStats<Double> floatStats = new FloatStats();
     private final StringStats stringStats = new StringStats();
 
     public void accept(LineType type, String line) {
         switch (type) {
-            case INTEGER -> {
-                intCount++;
-                intStats.accept(Long.parseLong(line));
-            }
-            case FLOAT -> {
-                floatCount++;
-                floatStats.accept(Double.parseDouble(line));
-            }
-            case STRING -> {
-                stringCount++;
-                stringStats.accept(line);
-            }
+            case INTEGER -> intStats.accept(Long.parseLong(line));
+            case FLOAT -> floatStats.accept(Double.parseDouble(line));
+            case STRING -> stringStats.accept(line);
         }
     }
 
     public void printShortStats() {
         System.out.println("---- Short stats ----");
-        if (intCount > 0) System.out.println("Integers: " + intCount);
-        if (floatCount > 0) System.out.println("Floats: " + floatCount);
-        if (stringCount > 0) System.out.println("Strings: " + stringCount);
+        if (intStats.hasData()) System.out.println("Integers: " + intStats.getCount());
+        if (floatStats.hasData()) System.out.println("Floats: " + floatStats.getCount());
+        if (stringStats.hasData()) System.out.println("Strings: " + stringStats.getCount());
     }
 
     public void printFullStats() {
@@ -59,7 +43,7 @@ public class Stats {
         }
     }
 
-    private void printNumberStats(NumbersStats stats) {
+    private void printNumberStats(NumbersStats<?> stats) {
         System.out.println("  count = " + stats.getCount());
         System.out.println("  min = " + stats.getMinValue());
         System.out.println("  max = " + stats.getMaxValue());
